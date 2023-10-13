@@ -11,7 +11,7 @@ const BookDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isClicked,setClick]=useState(false)
+  const [isClicked, setClick] = useState(false);
   const [BookDetails, setBookDetails] = useState({});
   const {
     title,
@@ -71,29 +71,33 @@ const BookDetails = () => {
   const averageRating = calculateAverageRating();
 
   const submitReview = async (reviewData) => {
-    console.log(reviewData)
+    console.log(reviewData);
     try {
-      let result = await fetch(`https://flutrr-booklisting-app.onrender.com/book/edit/${params.id}`, {
-        method: "put",
-        body: JSON.stringify(reviewData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
+      let result = await fetch(
+        `https://flutrr-booklisting-app.onrender.com/book/${params.id}`,
+        {
+          method: "put",
+          body: JSON.stringify(reviewData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       if (result) {
         setClick(false);
         alert("Book review is added Successfully");
+        navigate(`/book/${params.id}`);
         // You can also update your state or do any other necessary actions after a successful review submission.
       }
     } catch (error) {
       alert("Failed to add the Book review❗❗❗❗❗❗");
     }
   };
-  
-  const closeReviewForm=()=>{
-    setClick(false)
-  }
+
+  const closeReviewForm = () => {
+    setClick(false);
+  };
 
   return (
     <div className="w-screen h-screen">
@@ -126,7 +130,7 @@ const BookDetails = () => {
                   By{" "}
                   <span className="font-semibold text-gray-500">{author}</span>
                 </p>
-                <p>4.5 ⭐ Rating</p>
+                <p>{averageRating.toFixed(1)}⭐ Rating</p>
                 <table className="table-fixed mt-6 md:w-2/3">
                   <thead className="pl-0 bg-slate-200 w-full">
                     <tr>
@@ -156,7 +160,9 @@ const BookDetails = () => {
                   className="bg-green-500 font-semibold rounded-lg border md:p-2 p-1 border-gray-500 mr-2 ">
                   Add to MyFavourite
                 </button>
-                <button className="bg-yellow-300 border font-semibold rounded-lg md:p-2 p-1 border-gray-500 " onClick={()=>setClick(true)}>
+                <button
+                  className="bg-yellow-300 border font-semibold rounded-lg md:p-2 p-1 border-gray-500 "
+                  onClick={() => setClick(true)}>
                   Write Review
                 </button>
               </div>
@@ -178,10 +184,13 @@ const BookDetails = () => {
             {review.length > 0 ? (
               <div>
                 {review.map((reviewItem, index) => (
-                  <div key={index}>
-                    <h1>{reviewItem.name}</h1>
-                    <p>Rating: {reviewItem.rating}</p>
-                    <p>{reviewItem.comment}</p>
+                  <div className="border border-pink-500 m-2 p-2" key={index}>
+                    <h1 className="font-bold text-lg">👤{reviewItem.name}</h1>
+                    <p className=" py-4">Rating: {reviewItem.rating}⭐</p>
+                    <textarea
+                      value={reviewItem.comment}
+                      className="w-full p-2 mt-2 border rounded-md"
+                    />
                   </div>
                 ))}
               </div>
@@ -191,9 +200,11 @@ const BookDetails = () => {
           </div>
         </div>
       ) : (
-        <Loading/>
+        <Loading />
       )}
-      {isClicked && <ReviewForm onSubmit={submitReview} onClose={closeReviewForm} />}
+      {isClicked && (
+        <ReviewForm onSubmit={submitReview} onClose={closeReviewForm} />
+      )}
     </div>
   );
 };
