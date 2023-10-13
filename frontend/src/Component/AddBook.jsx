@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 
-const AddMovie = () => {
+const AddBook = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,7 +17,7 @@ const AddMovie = () => {
   });
   // console.log(formData)
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
     // Check if all input fields are filled
     if (
@@ -37,14 +37,14 @@ const AddMovie = () => {
       formData.coverImgLink
     );
     if (!isCoverImgValid) {
-      alert("Please enter a valid cover image URL.");
+      alert("Please enter a valid cover image URL.❗❗");
       return;
     }
 
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://movier-app.onrender.com/addmovie",
+        "https://flutrr-booklisting-app.onrender.com/add",
         {
           ...formData,
         }
@@ -55,7 +55,7 @@ const AddMovie = () => {
       setLoading(false);
       navigate("/");
     } catch (error) {
-      console.error("Error adding movie:", error);
+      console.error("Error adding Book:", error);
       alert("Error adding Book:", error);
       setLoading(false);
     }
@@ -138,7 +138,7 @@ const AddMovie = () => {
             </div>
           </fieldset>
           <button
-            onClick={handleSubmit} // Removed the () here
+            onClick={handleSubmit}
             className="bg-blue-600 hover:bg-blue-700 ml-2 text-white font-semibold px-4 py-2 rounded-md focus:outline-none">
             Add Book
           </button>
@@ -150,4 +150,4 @@ const AddMovie = () => {
   );
 };
 
-export default AddMovie;
+export default AddBook;

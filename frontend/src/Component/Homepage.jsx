@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
 import { useDispatch, useSelector } from "react-redux";
-import { addMoviesfromDb } from "./helper/Store/Slice/movieSlice";
-import { addMasterFromDb } from "./helper/Store/Slice/masterMovieData";
+import { addMasterFromDb } from "./helper/Store/Slice/masterBookData";
 import Loading from "./Loading";
+import { addBooksfromDb } from "./helper/Store/Slice/bookSlice";
+import BookCard from "./BookCard";
 
 const Homepage = () => {
-  // const [movieData, upadateMovie] = useState([])
   const [LoadingOn, setOn] = useState(false);
-  const [selectedSort, setSelectedSort] = useState("");
   const dispatch = useDispatch();
-  const movieData = useSelector((store) => store.movie);
-  const masterData = useSelector((store) => store.masterData);
-  // console.log(data)
+  const bookData = useSelector((store) => store.book);
   useEffect(() => {
-    getMovieFromDB();
+    getBookFromDB();
   }, []);
 
-
-
   // get all data from database 
-  const getMovieFromDB = async () => {
+  const getBookFromDB = async () => {
     try {
       setOn(true);
-      const result = await fetch("https://movier-app.onrender.com/");
+      const result = await fetch("https://flutrr-booklisting-app.onrender.com/");
       const allData = await result.json();
 
       console.log(allData);
-      // upadateMovie(allData)
       if (allData) {
         setOn(false);
-        dispatch(addMoviesfromDb(allData));
+        dispatch(addBooksfromDb(allData));
         dispatch(addMasterFromDb(allData));
       }
     } catch (error) {
@@ -39,20 +32,22 @@ const Homepage = () => {
   };
 
   return (
-    <div className=" flex flex-col">
+    <div className=" flex flex-col pb-9 w-full align-center">
      
       {LoadingOn && <Loading />}
-      {movieData.length > 0 ? (
+      {bookData.length > 0 ? (
         <section className="grid gap-4 md:gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-x-auto">
-          {movieData?.map((movie) => {
-            return <MovieCard movie={movie} key={movie?._id} />;
+          {bookData?.map((book) => {
+            return <BookCard book={book} key={book?._id} />;
           })}
         </section>
       ) : (
         !LoadingOn && (
-          <h1 className="text-4xl font-bold mt-2">
-            No movie Record is found ..🫡🫠
+          <div className="mr-[300px]">
+          <h1 className="text-4xl font-bold mt-4 text-center">
+            No book Record is found ..🫡🫠
           </h1>
+          </div>
         )
       )}
     </div>

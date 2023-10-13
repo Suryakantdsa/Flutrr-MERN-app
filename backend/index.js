@@ -23,7 +23,6 @@ app.get("/", async (req, resp) => {
             resp.send({ result: "no book data found" });
         } else {
             resp.send(books);
-            console.log(books);
         }
     } catch {
         resp.status(400).json({ message: "error occurred while fetching books" });
@@ -75,23 +74,24 @@ app.get("/book/edit/:id", async (req, resp) => {
     }
 })
 
-app.put("/book/edit/:id", async (req, resp) => {
-    try{
-
-        let result = await Book.updateOne(
-            { _id: req.params.id },
-            {
-                $set: req.body
-            }
-        )
-       
-        resp.send(result)
+app.put("/book/:id", async (req, res) => {
+    const bookId = req.params.id;
+    const reviewData = req.body;
+  
+    try {
+      const book = await Book.findById(bookId);
+      if (!book) {
+        return res.status(404).json({ message: "Book not found" });
+      }
+      // Use the addReview method to add the review to the book's reviews array.
+      await book.addReview(reviewData);
+  
+      res.status(200).json({ message: "Review added successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to add the review" });
     }
-    catch{
-        resp.status(400).json({ message: "error in upadating" })
-    }
-})
-
+  })
 
 app.delete("/book/:id", async (req, resp) => {
     try {

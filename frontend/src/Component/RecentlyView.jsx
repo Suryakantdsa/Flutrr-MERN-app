@@ -25,21 +25,21 @@ const RecentlyView = () => {
         </button>
       </h1>
       <section className="grid gap-2 md:gap-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-8 lg:grid-cols-4 px-8 py-4">
-        {recentlyview.map((movie) => {
-          const { title, posterImg, releaseYear, _id, genres, duration } =
-            movie;
+        {recentlyview.map((book) => {
+          const { title, _id,author,coverImgLink } =
+            book;
           return (
             <div className="relative w-[200px] h-[300px] md:w-[150px] md:h-[200px] border shadow-xl  hover:scale-105">
-              <Link className=" h-[85%] " to={`movie/${_id}`}>
+              <Link className=" h-[85%] " to={`book/${_id}`}>
                 <img
-                  src={posterImg}
+                  src={coverImgLink}
                   alt="poster"
                   className="w-full border h-full rounded-md shadow-lg    "
                 />
               </Link>
-              <Link to={`movie/${_id}`}>
+              <Link to={`book/${_id}`}>
                 <p className="w-full font-bold text-lg text-center mt-2">
-                  {title} <span className="font-normal">({releaseYear})</span>
+                  {title} <span className="font-normal">({author})</span>
                 </p>
               </Link>
             </div>

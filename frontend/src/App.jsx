@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import AddMovie from "./Component/AddMovie"
 import Body from "./Component/Body"
 import ErrorPage from "./Component/ErrorPage"
 import { Provider } from "react-redux"
 import store from "./Component/helper/Store/store"
-import WishList from "./Component/WishList"
-import MovieDetails from "./Component/MovieDetails.jsx"
 import RecentlyView from "./Component/RecentlyView"
+import AddBook from "./Component/AddBook"
+import Favourite from "./Component/Favourite"
+import BookDetails from "./Component/BookDetails"
 
 
 function App() {
@@ -18,10 +18,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Body />} errorElement={<ErrorPage/>}/>
-          <Route path='/addmovie' element={<AddMovie />} />
-          <Route path='/wishlist' element={<WishList />} />
+          <Route path='/add' element={<AddBook />} />
+          <Route path='/favourite' element={<Favourite/>} />
           <Route path='/recentlyview' element={<RecentlyView />} />
-          <Route path='/movie/:id' element={<MovieDetails />} />
+          <Route path='/book/:id' element={<BookDetails />} />
         </Routes>
       </BrowserRouter>
     </Provider>

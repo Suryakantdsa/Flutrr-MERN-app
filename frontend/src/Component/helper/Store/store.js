@@ -1,17 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import movieSlice from "./Slice/movieSlice";
-import masterMovieData from "./Slice/masterMovieData";
-import wishlistSlice from "./Slice/wishlistSlice";
 import RecentlyviewSlice from "./Slice/RecentlyviewSlice";
-
-
+import bookSlice from "./Slice/bookSlice";
+import masterBookData from "./Slice/masterBookData";
+import favouriteSlice from "./Slice/favouriteSlice";
 
 const store=configureStore({
     reducer:{
-        movie:movieSlice,
-        masterData:masterMovieData,
-        wishlist:wishlistSlice,
+        book:bookSlice,
+        masterData:masterBookData,
+        favourite:favouriteSlice,
         recentlyview:RecentlyviewSlice
     }
 })
+
 export default store

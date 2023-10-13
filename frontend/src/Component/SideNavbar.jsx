@@ -6,7 +6,7 @@ const SideNavbar = () => {
     <div className="hidden md:flex flex-col justify-between w-[240px] h-full bg-pink-200 p-3">
       <ul>
         <li>
-          <Link to={"/addmovie"}>
+          <Link to={"/add"}>
             <button className="p-3 bg-blue-300 rounded-xl font-bold flex items-center  ">
               <span className="bi bi-plus-circle-dotted px-2 text-3xl font-bold"></span>
               <span className="px-2">Add Book</span>
@@ -18,7 +18,7 @@ const SideNavbar = () => {
             <i className="fa-solid fa-house pr-2"></i>Home
           </li>
         </Link>
-        <Link to={"/wishlist"}>
+        <Link to={"/favourite"}>
           <li className="w-full p-2 hover:bg-blue-300">
             <span id="boot-icon" className="bi bi-bookmark-plus pr-2"></span>
             Favourite

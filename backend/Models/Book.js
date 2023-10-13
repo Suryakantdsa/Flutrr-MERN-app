@@ -25,13 +25,22 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  review: {
-    type: [String],
-    // required: true,
-  },
+  review: [
+    {
+      name: String,
+      rating: Number,
+      comment: String,
+    },
+    
+  ],
 
 
 });
+bookSchema.methods.addReview = function (review) {
+  this.review.push(review);
+  return this.save(); 
+};
+
 
 const Book = mongoose.model('book', bookSchema);
 
